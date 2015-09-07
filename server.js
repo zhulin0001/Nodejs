@@ -3,7 +3,23 @@ var net = require('net');
 var HOST = '127.0.0.1';
 var PORT = 6969;
 
-var connections = new Array();
+var connections = new Array();    //用来存放客户端连接信息
+
+var callback = function(data) {
+    // console.log('DATA ' + sock.remoteAddress + ': ' + data);
+    // Write the data back to the socket, the client will receive it as data from the server
+    // sock.write('You said "' + data + '"');
+    console.log('RECV: ' + parseInt(data));
+    if(parseInt(data) == 1){
+      var a = 0;
+      while (true) {
+        a++;
+      }
+    }
+    else{
+      console.log(data);
+    }
+};
 
 // Create a server instance, and chain the listen function to it
 // The function passed to net.createServer() becomes the event handler for the 'connection' event
@@ -18,16 +34,10 @@ net.createServer(function(sock) {
     connections.push(sock);
 
     // Add a 'data' event handler to this instance of socket
-    sock.on('data', function(data) {
-
-        console.log('DATA ' + sock.remoteAddress + ': ' + data);
-        // Write the data back to the socket, the client will receive it as data from the server
-        sock.write('You said "' + data + '"');
-
-    });
+    sock.on('data', callback);
 
     // Add a 'close' event handler to this instance of socket
-    sock.on('close', function(data) {
+    sock.on('close', function(data, sock) {
         console.log('CLOSED: ' + sock.remoteAddress +' '+ sock.remotePort +' '+ sock.localAddress +' '+ sock.localPort);
         console.log('DATA: ' + data);
         console.log('CLOSED NAME: ' + sock.localname);
