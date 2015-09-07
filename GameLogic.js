@@ -1,16 +1,8 @@
-var util = require('util');
-var events = require('events');
+module.exports = GameLogic;
 
 function GameLogic(){
-  events.EventEmitter.call(this);
 }
 
-util.inherits(GameLogic, events.EventEmitter);
-
-GameLogic.prototype.init = function(data){
-  this.emit('event', data);
-}
-
-GameLogic.process = function(data){
-  console.log(data);
-}
+GameLogic.prototype.do = function(data){
+  console.log('Do :' + data);
+};

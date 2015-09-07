@@ -1,9 +1,12 @@
 var net = require('net');
+var GameLogic = require('./GameLogic');
 
 var HOST = '127.0.0.1';
 var PORT = 6969;
 
 var connections = new Array();    //用来存放客户端连接信息
+
+var server1 = new GameLogic();
 
 var callback = function(data) {
     // console.log('DATA ' + sock.remoteAddress + ': ' + data);
@@ -11,10 +14,7 @@ var callback = function(data) {
     // sock.write('You said "' + data + '"');
     console.log('RECV: ' + parseInt(data));
     if(parseInt(data) == 1){
-      var a = 0;
-      while (true) {
-        a++;
-      }
+      server1.do(data);
     }
     else{
       console.log(data);
