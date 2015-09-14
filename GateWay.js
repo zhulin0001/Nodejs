@@ -1,24 +1,19 @@
 var net = require('net');
-var GameLogic = require('./GameLogic');
+var PinaappleServer = require('./PinaappleServer');
 
 var HOST = '127.0.0.1';
 var PORT = 6969;
 
 var connections = new Array();    //用来存放客户端连接信息
 
-var server1 = new GameLogic();
+var server1 = new PinaappleServer();
 
 var callback = function(data) {
     // console.log('DATA ' + sock.remoteAddress + ': ' + data);
     // Write the data back to the socket, the client will receive it as data from the server
     // sock.write('You said "' + data + '"');
     console.log('RECV: ' + parseInt(data));
-    if(parseInt(data) == 1){
-      server1.do(data);
-    }
-    else{
-      console.log(data);
-    }
+    server1.do(data);
 };
 
 // Create a server instance, and chain the listen function to it
@@ -37,7 +32,8 @@ net.createServer(function(sock) {
     sock.on('data', callback);
 
     // Add a 'close' event handler to this instance of socket
-    sock.on('close', function(data, sock) {
+    sock.on('close', function(data) {
+        console.log('LOG: ' + sock + data);
         console.log('CLOSED: ' + sock.remoteAddress +' '+ sock.remotePort +' '+ sock.localAddress +' '+ sock.localPort);
         console.log('DATA: ' + data);
         console.log('CLOSED NAME: ' + sock.localname);
