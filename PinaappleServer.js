@@ -16,6 +16,10 @@ function PinaappleServer(){
   }
   this.playerNumer = 0;
   this.gameStatus = Constants.GAME_READY;
+
+  function gameloop(data) {
+    // body...
+  }
 }
 
 PinaappleServer.prototype.do = function(data){
