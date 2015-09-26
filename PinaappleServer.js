@@ -18,7 +18,16 @@ function PinaappleServer(){
   this.gameStatus = Constants.GAME_READY;
 
   function gameloop(data) {
-    // body...
+    var obj = JSON.parse(data);
+    if (obj) {
+      eval("var _function = " + "call" + obj.cmd);
+      _function(obj.param);
+    }
+  }
+
+//game logic
+  function callLogin(param){
+    console.log('CallLogin: ' + param);
   }
 }
 
